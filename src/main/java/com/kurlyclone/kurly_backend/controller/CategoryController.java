@@ -20,16 +20,7 @@ public class CategoryController {
     private final ProductRepository productRepository;
 
     // outer
-
-    // 접근 1
     @GetMapping(value = "api/category", params = "outer")
-    public List<Category> getByOuterCategory(String outer){
-        // query : n+1 개
-        return categoryRepository.findAllByOuterCategory(OuterCategory.valueOf(outer));
-    }
-
-    // 접근 2 쿼리
-    @GetMapping(value = "api/category2", params = "outer")
     public List<Product> getByOuterCategory2(String outer){
         // query : 1개
         // 이 쿼리도 없앨 수 있습니다. enum 내부 관계가 연결된 상태로 정의
@@ -39,7 +30,6 @@ public class CategoryController {
     }
 
     // inner
-
     @GetMapping(value = "api/category", params = "inner")
     public List<Product> getByCategory(String inner){
         Optional<Category> innerCategory = categoryRepository.findByInnerCategory(InnerCategory.valueOf(inner));
@@ -47,8 +37,8 @@ public class CategoryController {
             return productRepository.findAllByCategory(innerCategory.get());
         }
         else {
+            // 처리
             return null;
         }
     }
-
 }
