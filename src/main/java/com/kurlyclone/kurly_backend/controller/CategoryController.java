@@ -21,7 +21,7 @@ public class CategoryController {
 
     // outer
     @GetMapping(value = "api/category", params = "outer")
-    public List<Product> getByOuterCategory2(String outer){
+    public List<Product> getByOuterCategory(String outer) {
         // query : 1개
         // 이 쿼리도 없앨 수 있습니다. enum 내부 관계가 연결된 상태로 정의
         List<Category> outerCategory = categoryRepository.findAllByOuterCategory(OuterCategory.valueOf(outer));
@@ -31,12 +31,11 @@ public class CategoryController {
 
     // inner
     @GetMapping(value = "api/category", params = "inner")
-    public List<Product> getByCategory(String inner){
+    public List<Product> getByInnerCategory(String inner) {
         Optional<Category> innerCategory = categoryRepository.findByInnerCategory(InnerCategory.valueOf(inner));
-        if (innerCategory.isPresent()){
+        if (innerCategory.isPresent()) {
             return productRepository.findAllByCategory(innerCategory.get());
-        }
-        else {
+        } else {
             // 처리
             return null;
         }
