@@ -2,6 +2,7 @@ package com.kurlyclone.kurly_backend.repository;
 
 import com.kurlyclone.kurly_backend.model.Category;
 import com.kurlyclone.kurly_backend.model.Product;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,5 +17,5 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
     @Query("SELECT p FROM Product p WHERE p.category IN (:categories)")
     List<Product> findAllByCategories(@Param("categories") List<Category> categories);
 
-
+    List<Product> findAllByOrderByDcDesc(Pageable pageable);
 }
