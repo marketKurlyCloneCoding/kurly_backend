@@ -2,7 +2,6 @@ package com.kurlyclone.kurly_backend.runner;
 
 import com.kurlyclone.kurly_backend.model.Category;
 import com.kurlyclone.kurly_backend.model.InnerCategory;
-import com.kurlyclone.kurly_backend.model.OuterCategory;
 import com.kurlyclone.kurly_backend.model.Product;
 import com.kurlyclone.kurly_backend.repository.CategoryRepository;
 import com.kurlyclone.kurly_backend.repository.ProductRepository;

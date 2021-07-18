@@ -15,12 +15,12 @@ public class SetupRunner implements CommandLineRunner {
     private final CategoryRepository categoryRepository;
 
     private void createAllCategory(){
-        categoryRepository.save(new Category(OuterCategory.FRUIT, InnerCategory.FRUIT1));
-        categoryRepository.save(new Category(OuterCategory.FRUIT, InnerCategory.FRUIT2));
-        categoryRepository.save(new Category(OuterCategory.FRUIT, InnerCategory.FRUIT3));
         categoryRepository.save(new Category(OuterCategory.VEGE, InnerCategory.VEGE1));
         categoryRepository.save(new Category(OuterCategory.VEGE, InnerCategory.VEGE2));
         categoryRepository.save(new Category(OuterCategory.VEGE, InnerCategory.VEGE3));
+        categoryRepository.save(new Category(OuterCategory.FRUIT, InnerCategory.FRUIT1));
+        categoryRepository.save(new Category(OuterCategory.FRUIT, InnerCategory.FRUIT2));
+        categoryRepository.save(new Category(OuterCategory.FRUIT, InnerCategory.FRUIT3));
         categoryRepository.save(new Category(OuterCategory.SEAFOOD, InnerCategory.SEAFOOD1));
         categoryRepository.save(new Category(OuterCategory.SEAFOOD, InnerCategory.SEAFOOD2));
         categoryRepository.save(new Category(OuterCategory.SEAFOOD, InnerCategory.SEAFOOD3));
