@@ -24,4 +24,10 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
     List<Product> findAllByCategories(@Param("categories") List<Category> categories, Pageable pageable);
 
     List<Product> findAllByOrderByDcDesc(Pageable pageable);
+
+    //놓치면 후회할 가격
+    @Query("select p from Product p order by p.price asc")
+    List<Product> findAllByLowestProduct(Pageable pageable);
+
+
 }

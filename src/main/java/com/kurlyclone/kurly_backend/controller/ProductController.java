@@ -24,7 +24,7 @@ public class ProductController {
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
 
-    // 단일상품
+    // 상품 상세 페이지 (단일 상품 정보 가져오기)
     @GetMapping(value = "api/v1/product/{id}")
     public ResponseDTO getById(@PathVariable long id) {
         ResponseDTO responseDTO = new ResponseDTO();
@@ -52,9 +52,9 @@ public class ProductController {
             List<Category> seaFoodCategory = categoryRepository.findAllByOuterCategory(OuterCategory.SEAFOOD);
 
             List<Product> products = new ArrayList<>();
-            products.addAll(productRepository.findAllByCategories(fruitCategory, PageRequest.of(0,3)));
-            products.addAll(productRepository.findAllByCategories(vegeCategory, PageRequest.of(0,3)));
-            products.addAll(productRepository.findAllByCategories(seaFoodCategory, PageRequest.of(0,3)));
+            products.addAll(productRepository.findAllByCategories(fruitCategory, PageRequest.of(0,6)));
+            products.addAll(productRepository.findAllByCategories(vegeCategory, PageRequest.of(0,6)));
+            products.addAll(productRepository.findAllByCategories(seaFoodCategory, PageRequest.of(0,8)));
 
             responseDTO.setResult(products);
             responseDTO.setOk(true);
@@ -66,9 +66,17 @@ public class ProductController {
         return responseDTO;
     }
 
-    // 할인률 (놓지면 후회할 가격)
+    // 특가,혜택
     @GetMapping(value = "api/special_deal")
     public List<Product> getByDc() {
-        return productRepository.findAllByOrderByDcDesc(PageRequest.of(0, 6));
+        return productRepository.findAllByOrderByDcDesc(PageRequest.of(0, 3));
     }
+
+    //놓치면 후회할 가격
+    @GetMapping("/api/v1/hot_deal")
+    public List<Product> getByLowPrice()
+    {
+        return productRepository.findAllByLowestProduct(PageRequest.of(0,8));
+    }
+
 }
