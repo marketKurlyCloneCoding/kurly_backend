@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -22,8 +23,7 @@ public class CategoryService {
     private final CategoryRepository categoryRepository;
     private final ProductRepository productRepository;
 
-    public ResponseDTO getOutterCategory(String outer)
-    {
+    public List<ResponseDTO> getOutterCategory(String outer) {
         outer = outer.toUpperCase();
 
         List<Long> categoryIds = new ArrayList<>();
@@ -31,39 +31,20 @@ public class CategoryService {
             if (innerCategoryEnum.name().contains(outer)) categoryIds.add(innerCategoryEnum.getId());
         }
 
-        List<Product> OuterProductList = productRepository.findAllByCategoryIds(categoryIds);
+        return productRepository.findAllByCategoryIds(categoryIds).stream()
+                .map(ResponseDTO::new)
+                .collect(Collectors.toList());
 
-        ResponseDTO responseDTO=new ResponseDTO();
-        try
-        {
-            responseDTO.setResult(OuterProductList);
-            responseDTO.setOk(true);
-        }
-        catch (Exception e)
-        {
-            responseDTO.setResult(e.getMessage());
-            responseDTO.setOk(false);
-        }
-        return responseDTO;
     }
 
-    public ResponseDTO getInnerCategory(String inner)
-    {
-        inner =inner.toUpperCase();
-        Optional<Category> innerCategory = categoryRepository.findByInnerCategory(InnerCategory.valueOf(inner));
-        List<Product> InnerProductList = productRepository.findAllByCategory(innerCategory.get());
+    public List<ResponseDTO> getInnerCategory(String inner) {
+        inner = inner.toUpperCase();
+        Category innerCategory = categoryRepository.findByInnerCategory(InnerCategory.valueOf(inner))
+                .orElseThrow(()->new IllegalArgumentException("해당 아이디는 존재하지 않습니다."));
 
-        ResponseDTO responseDTO = new ResponseDTO();
-        try {
-            responseDTO.setResult(InnerProductList);
-            responseDTO.setOk(true);
-        }
-        catch (Exception e)
-        {
-            responseDTO.setResult(e.getMessage());
-            responseDTO.setOk(false);
-        }
+        return productRepository.findAllByCategory(innerCategory).stream()
+                .map(ResponseDTO::new)
+                .collect(Collectors.toList());
 
-        return responseDTO;
     }
 }

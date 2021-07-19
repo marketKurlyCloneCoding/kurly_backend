@@ -20,11 +20,6 @@ public class Product {
     @JsonIgnore
     private Category category;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "banner_id")
-    @JsonIgnore
-    private Banner banner;
-
     @Column(nullable = false)
     private String img;
 
