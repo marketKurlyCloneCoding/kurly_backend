@@ -29,14 +29,16 @@ public class CategoryController {
         for (InnerCategory innerCategoryEnum : InnerCategory.class.getEnumConstants()) {
             if (innerCategoryEnum.name().contains(outer)) categoryIds.add(innerCategoryEnum.getId());
         }
-        // query : 1개
+        // query:1개
         return productRepository.findAllByCategoryIds(categoryIds);
     }
 
     // inner Category
     @GetMapping(value = "api/category", params = "inner")
     public List<Product> getByInnerCategory(String inner) {
+        inner =inner.toUpperCase();
         Optional<Category> innerCategory = categoryRepository.findByInnerCategory(InnerCategory.valueOf(inner));
+
         if (innerCategory.isPresent()) {
             return productRepository.findAllByCategory(innerCategory.get());
         } else {

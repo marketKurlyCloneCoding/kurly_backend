@@ -41,7 +41,7 @@ public class ProductController {
         return responseDTO;
     }
 
-    // 이 상품 어때요
+    // 이 상품 어때요 (20개)
     @GetMapping(value = "api/v1/offer_deal")
     public ResponseDTO get3FromAllCategories() {
         ResponseDTO responseDTO = new ResponseDTO();
@@ -66,7 +66,7 @@ public class ProductController {
         return responseDTO;
     }
 
-    // 특가,혜택
+    // 특가,혜택 (3개)
     @GetMapping(value = "api/special_deal")
     public List<Product> getByDc() {
         return productRepository.findAllByOrderByDcDesc(PageRequest.of(0, 3));

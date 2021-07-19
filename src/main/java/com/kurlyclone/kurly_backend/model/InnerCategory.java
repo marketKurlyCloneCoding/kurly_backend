@@ -14,4 +14,5 @@ public enum InnerCategory {
     SEAFOOD1(7L), SEAFOOD2(8L), SEAFOOD3(9L);
 
     private final Long id;
+
 }
