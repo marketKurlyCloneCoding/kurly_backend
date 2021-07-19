@@ -2,6 +2,7 @@ package com.kurlyclone.kurly_backend.controller;
 
 import com.kurlyclone.kurly_backend.dto.ResponseDTO;
 import com.kurlyclone.kurly_backend.model.Category;
+import com.kurlyclone.kurly_backend.model.InnerCategory;
 import com.kurlyclone.kurly_backend.model.OuterCategory;
 import com.kurlyclone.kurly_backend.model.Product;
 import com.kurlyclone.kurly_backend.repository.CategoryRepository;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 
