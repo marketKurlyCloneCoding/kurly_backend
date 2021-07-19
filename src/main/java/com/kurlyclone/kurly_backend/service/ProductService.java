@@ -1,32 +1,31 @@
-package com.kurlyclone.kurly_backend.controller;
+package com.kurlyclone.kurly_backend.service;
 
-import com.kurlyclone.kurly_backend.dto.ResponseDTO;
 import com.kurlyclone.kurly_backend.model.Category;
-import com.kurlyclone.kurly_backend.model.InnerCategory;
 import com.kurlyclone.kurly_backend.model.OuterCategory;
 import com.kurlyclone.kurly_backend.model.Product;
 import com.kurlyclone.kurly_backend.repository.CategoryRepository;
 import com.kurlyclone.kurly_backend.repository.ProductRepository;
+import com.kurlyclone.kurly_backend.web.dto.ResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 @RequiredArgsConstructor
-@RestController
-public class ProductController {
+@Transactional(readOnly = true)
+@Service
+public class ProductService {
+
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
 
-    // 상품 상세 페이지 (단일 상품 정보 가져오기)
-    @GetMapping(value = "api/v1/product/{id}")
-    public ResponseDTO getById(@PathVariable long id) {
+    //상세 조회
+    public ResponseDTO findOne(Long id)
+    {
         ResponseDTO responseDTO = new ResponseDTO();
         try{
             Product product = productRepository.findById(id)
@@ -39,11 +38,12 @@ public class ProductController {
             responseDTO.setOk(false);
         }
         return responseDTO;
+
     }
 
-    // 이 상품 어때요 (20개)
-    @GetMapping(value = "api/v1/offer_deal")
-    public ResponseDTO get3FromAllCategories() {
+    //이 상품 어때요
+    public ResponseDTO getOfferDeal()
+    {
         ResponseDTO responseDTO = new ResponseDTO();
         try{
             // TODO : enum 의 내부 관계가 정의되어 있다면 조금 더 빠르게 만들 수 있습니다.
@@ -66,9 +66,9 @@ public class ProductController {
         return responseDTO;
     }
 
-    // 특가,혜택 (3개)
-    @GetMapping(value = "api/v1/special_deal")
-    public ResponseDTO getByDc() {
+    //특가,혜택
+    public ResponseDTO specialDeal()
+    {
         ResponseDTO responseDTO =new ResponseDTO();
         try {
             List<Product> productList = productRepository.findAllByOrderByDcDesc(PageRequest.of(0, 3));
@@ -85,9 +85,8 @@ public class ProductController {
         return responseDTO;
     }
 
-    //놓치면 후회할 가격 (8개)
-    @GetMapping("/api/v1/hot_deal")
-    public ResponseDTO getByLowPrice()
+    //놓치면 후회 할 가격
+    public ResponseDTO hotDeal()
     {
         ResponseDTO responseDTO=new ResponseDTO();
         try{

@@ -1,4 +1,4 @@
-package com.kurlyclone.kurly_backend.dto;
+package com.kurlyclone.kurly_backend.web.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
