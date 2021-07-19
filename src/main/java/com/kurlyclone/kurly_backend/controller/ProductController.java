@@ -67,16 +67,41 @@ public class ProductController {
     }
 
     // 특가,혜택 (3개)
-    @GetMapping(value = "api/special_deal")
-    public List<Product> getByDc() {
-        return productRepository.findAllByOrderByDcDesc(PageRequest.of(0, 3));
+    @GetMapping(value = "api/v1/special_deal")
+    public ResponseDTO getByDc() {
+        ResponseDTO responseDTO =new ResponseDTO();
+        try {
+            List<Product> productList = productRepository.findAllByOrderByDcDesc(PageRequest.of(0, 3));
+            responseDTO.setResult(productList);
+            responseDTO.setOk(true);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            responseDTO.setResult((e.getMessage()));
+            responseDTO.setOk(false);
+        }
+
+        return responseDTO;
     }
 
-    //놓치면 후회할 가격
+    //놓치면 후회할 가격 (8개)
     @GetMapping("/api/v1/hot_deal")
-    public List<Product> getByLowPrice()
+    public ResponseDTO getByLowPrice()
     {
-        return productRepository.findAllByLowestProduct(PageRequest.of(0,8));
+        ResponseDTO responseDTO=new ResponseDTO();
+        try{
+            List<Product> hotDealProduct = productRepository.findAllByLowestProduct(PageRequest.of(0, 8));
+            responseDTO.setResult(hotDealProduct);
+            responseDTO.setOk(true);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            responseDTO.setResult(e.getMessage());
+            responseDTO.setOk(false);
+        }
+        return responseDTO;
     }
 
 }
