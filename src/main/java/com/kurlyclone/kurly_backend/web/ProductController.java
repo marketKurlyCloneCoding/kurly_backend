@@ -10,16 +10,14 @@ import com.kurlyclone.kurly_backend.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 @RequiredArgsConstructor
+@CrossOrigin(origins = {"http://localhost:3000"},allowCredentials = "true")
 @RequestMapping("api/v1/")
 @RestController
 public class ProductController {
