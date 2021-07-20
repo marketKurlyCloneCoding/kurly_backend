@@ -18,16 +18,6 @@ public class ResponseDTO {
     private Integer dc;
     private Integer original_price;
 
-    @Builder
-    public ResponseDTO(Long id, String img, String title, String subTitle, Integer price, Integer dc, Integer original_price) {
-        this.id = id;
-        this.img = img;
-        this.title = title;
-        this.subTitle = subTitle;
-        this.price = price;
-        this.dc = dc;
-        this.original_price = original_price;
-    }
 
     public ResponseDTO(Product product)
     {
