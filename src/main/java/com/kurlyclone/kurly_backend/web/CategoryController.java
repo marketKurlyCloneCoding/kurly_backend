@@ -21,7 +21,7 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @CrossOrigin(origins = {"http://localhost:3000"},allowCredentials = "true")
-@RequestMapping("api/category")
+@RequestMapping("api/v1/category")
 @RestController
 public class CategoryController {
 
