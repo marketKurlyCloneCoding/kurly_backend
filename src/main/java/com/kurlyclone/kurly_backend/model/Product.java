@@ -1,6 +1,7 @@
 package com.kurlyclone.kurly_backend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -36,6 +37,7 @@ public class Product {
 
     private Integer original_price;
 
+    @Builder
     public Product(String img, String title, String subTitle, Integer price, Integer dc, Integer original_price) {
         this.img = img;
         this.title = title;
