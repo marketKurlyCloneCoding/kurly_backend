@@ -14,11 +14,21 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<Product,Long> {
     List<Product> findAllByCategory(Category category);
 
+    List<Product> findAllByCategoryOrderByPriceDesc(Category category);
+
+    List<Product> findAllByCategoryOrderByPriceAsc(Category category);
+
     @Query("SELECT p FROM Product p WHERE p.category IN (:categories)")
     List<Product> findAllByCategories(@Param("categories") List<Category> categories);
 
     @Query("SELECT p FROM Product p WHERE p.category.id IN (:categoryIds)")
     List<Product> findAllByCategoryIds(@Param("categoryIds") List<Long> categoryIds);
+
+    @Query("SELECT p FROM Product p WHERE p.category.id IN (:categoryIds) ORDER BY p.price DESC")
+    List<Product> findAllByCategoryIdsOrderByPriceDesc(@Param("categoryIds") List<Long> categoryIds);
+
+    @Query("SELECT p FROM Product p WHERE p.category.id IN (:categoryIds) ORDER BY p.price ASC")
+    List<Product> findAllByCategoryIdsOrderByPriceAsc(@Param("categoryIds") List<Long> categoryIds);
 
     @Query("SELECT p FROM Product p WHERE p.category IN (:categories)")
     List<Product> findAllByCategories(@Param("categories") List<Category> categories, Pageable pageable);
