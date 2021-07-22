@@ -1,6 +1,7 @@
 package com.kurlyclone.kurly_backend.repository;
 
 import com.kurlyclone.kurly_backend.model.Category;
+import com.kurlyclone.kurly_backend.model.OuterCategory;
 import com.kurlyclone.kurly_backend.model.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -23,8 +24,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> findAllByCategoryOrderByPriceAsc(Category category);
 
-    @Query("SELECT p FROM Product p WHERE p.category IN (:categories)")
-    List<Product> findAllByCategories(@Param("categories") List<Category> categories);
 
     @Query("SELECT p FROM Product p WHERE p.category.id IN (:categoryIds)")
     List<Product> findAllByCategoryIds(@Param("categoryIds") List<Long> categoryIds);
@@ -35,8 +34,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("SELECT p FROM Product p WHERE p.category.id IN (:categoryIds) ORDER BY p.price ASC")
     List<Product> findAllByCategoryIdsOrderByPriceAsc(@Param("categoryIds") List<Long> categoryIds);
 
-    @Query("SELECT p FROM Product p WHERE p.category IN (:categories)")
-    List<Product> findAllByCategories(@Param("categories") List<Category> categories, Pageable pageable);
+    @Query("select p from Product p where p.category.outerCategory In (:outerCategory)")
+    List<Product> findAllByTest(@Param("outerCategory") OuterCategory outerCategory, Pageable pageable);
+
 
     //특가, 혜택
     List<Product> findTop3ByOrderByDcDesc();

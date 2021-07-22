@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
 public class ProductService {
 
     private final ProductRepository productRepository;
-    private final CategoryRepository categoryRepository;
 
     //상세 조회
     public ResponseDTO findOne(Long id) {
@@ -37,14 +36,11 @@ public class ProductService {
     //이 상품 어때요
     public List<ResponseDTO> getOfferDeal() {
 
-        List<Category> fruitCategory = categoryRepository.findAllByOuterCategory(OuterCategory.FRUIT);
-        List<Category> vegeCategory = categoryRepository.findAllByOuterCategory(OuterCategory.VEGE);
-        List<Category> seaFoodCategory = categoryRepository.findAllByOuterCategory(OuterCategory.SEAFOOD);
-
         List<Product> products = new ArrayList<>();
-        products.addAll(productRepository.findAllByCategories(fruitCategory, PageRequest.of(0, 6)));
-        products.addAll(productRepository.findAllByCategories(vegeCategory, PageRequest.of(0, 6)));
-        products.addAll(productRepository.findAllByCategories(seaFoodCategory, PageRequest.of(0, 8)));
+        products.addAll(productRepository.findAllByTest(OuterCategory.FRUIT,PageRequest.of(0,6)));
+        products.addAll(productRepository.findAllByTest(OuterCategory.VEGE,PageRequest.of(0,6)));
+
+        products.addAll(productRepository.findAllByTest(OuterCategory.SEAFOOD,PageRequest.of(0,8)));
 
         return products.stream()
                 .map(ResponseDTO::new)
