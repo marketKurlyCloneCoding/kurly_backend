@@ -13,5 +13,6 @@ import java.util.Optional;
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
     List<Category> findAllByOuterCategory(OuterCategory outerCategory);
+
     Optional<Category> findByInnerCategory(InnerCategory innerCategory);
 }

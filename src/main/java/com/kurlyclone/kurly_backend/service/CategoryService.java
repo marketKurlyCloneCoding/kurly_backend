@@ -54,7 +54,7 @@ public class CategoryService {
 
         if (sort.equals("DESC")) {
             products = productRepository.findAllByCategoryIdsOrderByPriceDesc(categoryIds);
-        } else if (sort.equals("ASC")){
+        } else if (sort.equals("ASC")) {
             products = productRepository.findAllByCategoryIdsOrderByPriceAsc(categoryIds);
         } else {
             throw new IllegalArgumentException("sort parameter 값이 ASC, DESC 가 아닙니다.");
@@ -89,7 +89,7 @@ public class CategoryService {
 
         if (sort.equals("DESC")) {
             products = productRepository.findAllByCategoryOrderByPriceDesc(innerCategory);
-        } else if (sort.equals("ASC")){
+        } else if (sort.equals("ASC")) {
             products = productRepository.findAllByCategoryOrderByPriceAsc(innerCategory);
         } else {
             throw new IllegalArgumentException("sort parameter 값이 ASC, DESC 가 아닙니다.");

@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @RequiredArgsConstructor
-@CrossOrigin(origins = {"http://localhost:3000"},allowCredentials = "true")
+@CrossOrigin(origins = {"http://localhost:3000"}, allowCredentials = "true")
 @RequestMapping("api/v1/")
 @RestController
 public class ProductController {
@@ -43,10 +43,8 @@ public class ProductController {
 
     //놓치면 후회할 가격 (8개)
     @GetMapping("hot_deal")
-    public ResponseEntity<List<ResponseDTO>> getByLowPrice()
-    {
+    public ResponseEntity<List<ResponseDTO>> getByLowPrice() {
         return ResponseEntity.ok().body(productService.hotDeal());
 
     }
-
 }

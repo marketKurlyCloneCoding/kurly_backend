@@ -55,7 +55,7 @@ public class ProductService {
     //특가,혜택
     public List<ResponseDTO> specialDeal() {
 
-        List<Product> productList = productRepository.findAllByOrderByDcDesc(PageRequest.of(0, 3));
+        List<Product> productList = productRepository.findTop3ByOrderByDcDesc();
 
         return productList.stream()
                 .map(ResponseDTO::new)
@@ -65,7 +65,7 @@ public class ProductService {
     //놓치면 후회 할 가격
     public List<ResponseDTO> hotDeal() {
 
-        List<Product> hotDealProduct = productRepository.findAllByLowestProduct(PageRequest.of(0, 8));
+        List<Product> hotDealProduct = productRepository.findTop8ByOrderByPriceAsc();
 
         return hotDealProduct.stream()
                 .map(ResponseDTO::new)
